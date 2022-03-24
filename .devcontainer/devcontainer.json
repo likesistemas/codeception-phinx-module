@@ -1,5 +1,5 @@
 {
-	"name": "like/composer-empty",
+	"name": "codeception-phinx-module",
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
