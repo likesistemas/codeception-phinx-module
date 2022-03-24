@@ -2,7 +2,7 @@
 
 namespace Like\NomeDaLib\Tests;
 
-use Like\Codeception\Phinx\Phinx;
+use Like\Codeception\Phinx;
 use PHPUnit\Framework\TestCase;
 
 class PhinxTest extends TestCase {

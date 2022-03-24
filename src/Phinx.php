@@ -1,6 +1,6 @@
 <?php
 
-namespace Like\Codeception\Phinx;
+namespace Like\Codeception;
 
 use Codeception\Module;
 use Codeception\TestInterface;
