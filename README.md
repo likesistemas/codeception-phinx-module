@@ -6,9 +6,9 @@
 composer require likesistemas/codeception-phinx-module --dev
 ```
 
-### Codeception
+## How to use in codeception
 
-Alternatively, you can add `Like\Codeception\Phinx` module to suite or global config.
+You can add `Like\Codeception\Phinx` module to suite or global config.
 
 ```yml
 modules:
