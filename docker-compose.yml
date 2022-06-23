@@ -11,6 +11,8 @@ services:
     environment:
       - GITHUB_TOKEN=$GITHUB_TOKEN
       - URL_SENTRY=${URL_SENTRY}
+      - DB_HOST=mysql
+      - DB_MIGRATE=false
     volumes:
       - ./:/var/www/public/
     networks:
