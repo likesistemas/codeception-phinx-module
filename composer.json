@@ -34,8 +34,8 @@
         }
     ],
     "scripts": {
-        "fix": "php-cs-fixer fix",
-        "fix:ci": "php-cs-fixer fix --dry-run --stop-on-violation",
+        "fix": "php-cs-fixer fix --show-progress=dots",
+        "fix:ci": "php-cs-fixer fix --dry-run --stop-on-violation --show-progress=dots",
         "test": "codecept run",
         "analyse": "phpstan analyse"
     }
