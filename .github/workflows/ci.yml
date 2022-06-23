@@ -23,8 +23,6 @@ jobs:
           PHP_VERSION: ${{ matrix.PHP }}
         run: |
           touch .env
-          echo "CODECOMMIT_USER=${{ secrets.CODECOMMIT_USER }}" >> .env
-          echo "CODECOMMIT_PASSWORD=${{ secrets.CODECOMMIT_PASSWORD }}" >> .env
           echo "GITHUB_TOKEN=${{ secrets.GH_TOKEN }}" >> .env
           echo "PHP_VERSION=$PHP_VERSION" >> .env
 

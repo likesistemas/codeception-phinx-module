@@ -11,7 +11,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0 || ^9.0",
-        "codeception/codeception": "^4.1"
+        "codeception/codeception": "^4.0 || ^5.0",
+        "codeception/module-phpbrowser": "^1.0 || ^2.0",
+        "codeception/module-asserts": "^1.3 || ^2.0",
+        "codeception/module-db": "^1.1 || ^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -31,9 +34,9 @@
         }
     ],
     "scripts": {
-        "fix": "php-cs-fixer fix",
-        "fix:ci": "php-cs-fixer fix --dry-run --stop-on-violation",
-        "test": "phpunit",
+        "fix": "php-cs-fixer fix --show-progress=dots",
+        "fix:ci": "php-cs-fixer fix --dry-run --stop-on-violation --show-progress=dots",
+        "test": "codecept run",
         "analyse": "phpstan analyse"
     }
 }
