@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests;
+
+use Tests\_generated\AcceptanceTesterActions;
 
 /**
  * Inherited Methods
@@ -13,12 +16,12 @@
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method void pause()
+ * @method void pause($vars = [])
  *
  * @SuppressWarnings(PHPMD)
  */
 class AcceptanceTester extends \Codeception\Actor {
-	use _generated\AcceptanceTesterActions;
+	use AcceptanceTesterActions;
 
 	/*
 	 * Define custom actions here

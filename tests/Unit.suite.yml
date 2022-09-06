@@ -7,7 +7,6 @@ modules:
     enabled:
         - Asserts
         - Db
-        - \Helper\Unit
         - Like\Codeception\Phinx
     step_decorators: ~
     config:
