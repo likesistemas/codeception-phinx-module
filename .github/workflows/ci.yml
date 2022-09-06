@@ -12,7 +12,7 @@ jobs:
   test:
     strategy:
       matrix:
-        PHP: [56, 73, 74, 80]
+        PHP: [56, 73, 74]
     runs-on: ubuntu-latest
 
     steps:
