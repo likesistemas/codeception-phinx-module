@@ -36,7 +36,10 @@
     "scripts": {
         "fix": "php-cs-fixer fix --show-progress=dots",
         "fix:ci": "php-cs-fixer fix --dry-run --stop-on-violation --show-progress=dots",
-        "test": "codecept run",
+        "test": [
+            "codecept build",
+            "codecept run"
+        ],
         "analyse": "phpstan analyse"
     }
 }
