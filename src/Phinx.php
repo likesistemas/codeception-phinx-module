@@ -48,6 +48,7 @@ class Phinx extends Module {
 			'../../../../tests/phinx.php',
 			'../../../../phinx.php',
 			'../../phinx.php',
+			'../phinx.php' // To use inside library tests
 		];
 
 		$notFound = [];
@@ -61,7 +62,7 @@ class Phinx extends Module {
 			$notFound[] = $src;
 		}
 
-		trigger_error("Phinx configuration not found. Paths: `" . join('`, `', $notFound) . '`', E_USER_ERROR);
+		trigger_error("Phinx configuration not found. Paths: `" . join('`, `', $notFound) . '`', E_USER_NOTICE);
 	}
 
 }
