@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
+namespace Tests;
 
-namespace Tests\Support;
+use Tests\_generated\AcceptanceTesterActions;
 
 /**
  * Inherited Methods
@@ -21,7 +21,7 @@ namespace Tests\Support;
  * @SuppressWarnings(PHPMD)
  */
 class AcceptanceTester extends \Codeception\Actor {
-	use _generated\AcceptanceTesterActions;
+	use AcceptanceTesterActions;
 
 	/*
 	 * Define custom actions here

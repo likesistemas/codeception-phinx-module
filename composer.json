@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Like\\Codeception\\Tests\\": "tests/"
+            "Tests\\": ["tests/", "tests/Support/"]
         }
     },
     "authors": [

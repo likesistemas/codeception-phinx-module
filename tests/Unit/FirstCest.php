@@ -1,6 +1,8 @@
 <?php
 
-use Tests\Support\UnitTester;
+namespace Tests\Unit;
+
+use Tests\UnitTester;
 
 class FirstCest {
 	public function tryToTest(UnitTester $I) {
