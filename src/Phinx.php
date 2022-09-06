@@ -18,7 +18,7 @@ class Phinx extends Module {
 	}
 
 	private function phinx() {
-		$config = realpath(__DIR__ . '/../../phinx.php');
+		$config = $this->findConfigPath();	
 
 		$app = new PhinxApplication();
 		$app->setAutoExit(false);
@@ -42,4 +42,26 @@ class Phinx extends Module {
 			trigger_error("Error on phinx execution.\n\n" . $output->fetch(), E_USER_ERROR);
 		}
 	}
+
+	private function findConfigPath() {
+		$paths = [
+			'../../../../tests/phinx.php',
+			'../../../../phinx.php',
+			'../../phinx.php',
+		];
+
+		$notFound = [];
+
+		foreach($paths as $path) {
+			$src = __DIR__ . '/' . $path;
+			if( file_exists($src) ) {
+				return realpath($src);
+			}
+
+			$notFound[] = $src;
+		}
+
+		trigger_error("Phinx configuration not found. Paths: `" . join('`, `', $notFound) . '`', E_USER_ERROR);
+	}
+
 }
