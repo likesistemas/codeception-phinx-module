@@ -4,7 +4,7 @@ parameters:
 		- src
 		- tests
 	scanDirectories:
-		- tests/_support/_generated/
+		- tests/Support/_generated/
 	excludePaths:
 		analyse:
-			- tests/_support/_generated/
+			- tests/Support/_generated/
