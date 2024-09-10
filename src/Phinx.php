@@ -13,23 +13,35 @@ class Phinx extends Module {
 		$populate = $this->getModule('Db')->_getConfig('populate');
 
 		if ($populate) {
-			$this->phinx();
+			$this->phinx($this->getSeedConfig());
 		}
 	}
 
-	private function phinx() {
+	private function getSeedConfig() {
+		$seed = $this->_getConfig('seed');
+		if($seed === null) {
+			$seed = true;
+		}
+
+		return boolval($seed);
+	}
+
+	private function phinx($seed) {
 		$config = $this->findConfigPath();
 
 		$app = new PhinxApplication();
 		$app->setAutoExit(false);
 
 		$output = new BufferedOutput();
-		
+
 		$this->run($app, $output, 'migrate', $config);
-		$this->run($app, $output, 'seed:run', $config);
+
+		if($seed) {
+			$this->run($app, $output, 'seed:run', $config);
+		}
 	}
 
-	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment='production') {
+	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment = 'production') {
 		$arguments = [
 			'command'         => $commandName,
 			'--environment'   => $environment,

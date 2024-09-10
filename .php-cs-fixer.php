@@ -1,7 +1,7 @@
 <?php
 
 $rules = [
-	'@PSR2' => true,
+	'@PSR12' => true,
 	'array_syntax' => ['syntax' => 'short'],
 	'multiline_whitespace_before_semicolons' => false,
 	'echo_tag_syntax' => false,
@@ -22,10 +22,11 @@ $rules = [
 	'ternary_operator_spaces' => true,
 	'trailing_comma_in_multiline' => true,
 	'trim_array_spaces' => true,
-	'braces' => [
-		'allow_single_line_closure' => true,
-		'position_after_functions_and_oop_constructs' => 'same',
+	'curly_braces_position' => [
+		'classes_opening_brace' => 'same_line',
+		'functions_opening_brace' => 'same_line',
 	],
+	'visibility_required' => ['elements' => ['property', 'method']],
 ];
 
 $excludes = [
