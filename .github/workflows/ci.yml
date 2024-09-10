@@ -12,11 +12,11 @@ jobs:
   test:
     strategy:
       matrix:
-        PHP: [56, 73, 74, 80, 81]
+        PHP: [56, 74, 80, 81, 82, 83]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Prepare code
         env:

@@ -33,7 +33,7 @@ class Phinx extends Module {
 		$app->setAutoExit(false);
 
 		$output = new BufferedOutput();
-		
+
 		$this->run($app, $output, 'migrate', $config);
 
 		if($seed) {
@@ -41,7 +41,7 @@ class Phinx extends Module {
 		}
 	}
 
-	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment='production') {
+	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment = 'production') {
 		$arguments = [
 			'command'         => $commandName,
 			'--environment'   => $environment,
