@@ -10,15 +10,33 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class Phinx extends Module {
 	public function _before(TestInterface $test) {
-		$populate = $this->getModule('Db')->_getConfig('populate');
-
-		if ($populate) {
-			$this->phinx($this->getSeedConfig());
+		if(! $this->getConfigPopulate()) {
+			return;
 		}
+
+		$environment = $this->getEnvironment($test);
+		$this->phinx($environment, $this->getSeedConfig());
+	}
+
+	private function getDefaultEnvironment() {
+		return $this->getModule('Db')->_getConfig('defaultEnvironment')
+			?: 'production';
+	}
+
+	private function getEnvironment(TestInterface $test) {
+		return $test->getMetadata()->getCurrent('env') ?: $this->getDefaultEnvironment();
+	}
+
+	private function getConfigPopulate() {
+		return $this->getModule('Db')->_getConfig('populate');
 	}
 
 	private function getSeedConfig() {
-		$seed = $this->_getConfig('seed');
+		return $this->getConfigBool('seed');
+	}
+
+	private function getConfigBool($config) {
+		$seed = $this->_getConfig($config);
 		if($seed === null) {
 			$seed = true;
 		}
@@ -26,7 +44,13 @@ class Phinx extends Module {
 		return boolval($seed);
 	}
 
-	private function phinx($seed) {
+	/**
+	 * @param string $environment
+	 * @param bool $seed
+	 *
+	 * @return void
+	 */
+	private function phinx($environment, $seed) {
 		$config = $this->findConfigPath();
 
 		$app = new PhinxApplication();
@@ -34,14 +58,14 @@ class Phinx extends Module {
 
 		$output = new BufferedOutput();
 
-		$this->run($app, $output, 'migrate', $config);
+		$this->run($app, $output, 'migrate', $config, $environment);
 
 		if($seed) {
-			$this->run($app, $output, 'seed:run', $config);
+			$this->run($app, $output, 'seed:run', $config, $environment);
 		}
 	}
 
-	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment = 'production') {
+	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment) {
 		$arguments = [
 			'command'         => $commandName,
 			'--environment'   => $environment,
