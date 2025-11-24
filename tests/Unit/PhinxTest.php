@@ -6,7 +6,7 @@ use Like\Codeception\Phinx;
 use PHPUnit\Framework\TestCase;
 
 class PhinxTest extends TestCase {
-	public function testInstance() {
+	public function testInstance(): void {
 		$this->assertTrue(class_exists(Phinx::class));
 	}
 }

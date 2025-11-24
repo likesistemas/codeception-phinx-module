@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 class Phinx extends Module {
-	public function _before(TestInterface $test) {
+	public function _before(TestInterface $test): void {
 		if (!$this->getConfigPopulate()) {
 			return;
 		}
@@ -35,7 +35,7 @@ class Phinx extends Module {
 		return $this->getConfigBool('seed');
 	}
 
-	private function getConfigBool($config) {
+	private function getConfigBool(string $config): bool {
 		$seed = $this->_getConfig($config);
 		if ($seed === null) {
 			$seed = true;
@@ -45,13 +45,14 @@ class Phinx extends Module {
 	}
 
 	/**
-	 * @param string $environment
-	 * @param bool $seed
-	 *
-	 * @return void
-	 */
-	private function phinx($environment, $seed) {
+     * @param string $environment
+     * @param bool $seed
+     */
+    private function phinx($environment, $seed): void {
 		$config = $this->findConfigPath();
+		if ($config === null) {
+			return;
+		}
 
 		$app = new PhinxApplication();
 		$app->setAutoExit(false);
@@ -65,7 +66,7 @@ class Phinx extends Module {
 		}
 	}
 
-	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment) {
+	private function run(PhinxApplication $phinx, BufferedOutput $output, string $commandName, string $config, $environment): void {
 		$arguments = [
 			'command' => $commandName,
 			'--environment' => $environment,
@@ -79,25 +80,41 @@ class Phinx extends Module {
 		}
 	}
 
-	private function findConfigPath() {
-		$paths = [
+	protected function getPathConfig(string $path): string {
+		return __DIR__ . '/' . $path;
+	}
+
+	protected function getPathsConfig(): array {
+		return [
 			'../../../../tests/phinx.php',
+			'../../../tests/phinx.php',
+			'../../tests/phinx.php',
+			'../tests/phinx.php',
+			'./tests/phinx.php',
 			'../../../../phinx.php',
+			'../../../phinx.php',
 			'../../phinx.php',
-			'../phinx.php', // To use inside library tests
+			'../phinx.php',
+			'./phinx.php',
 		];
+	}
+
+	protected function findConfigPath(): ?string {
+		$paths = $this->getPathsConfig();
 
 		$notFound = [];
 
 		foreach ($paths as $path) {
-			$src = __DIR__ . '/' . $path;
-			if (file_exists($src)) {
-				return realpath($src);
+			$src = $this->getPathConfig($path);
+			if (file_exists($src) && ($realPath = realpath($src)) !== false) {
+				return $realPath;
 			}
 
 			$notFound[] = $src;
 		}
 
-		trigger_error('Phinx configuration not found. Paths: `' . join('`, `', $notFound) . '`', E_USER_NOTICE);
+		trigger_error('Phinx configuration not found. Paths: `' . implode('`, `', $notFound) . '`', E_USER_NOTICE);
+
+		return null;
 	}
 }

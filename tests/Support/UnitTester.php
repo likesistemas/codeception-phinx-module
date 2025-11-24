@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Codeception\Actor;
 use Tests\_generated\UnitTesterActions;
 
 /**
@@ -20,7 +21,7 @@ use Tests\_generated\UnitTesterActions;
  *
  * @SuppressWarnings(PHPMD)
  */
-class UnitTester extends \Codeception\Actor {
+class UnitTester extends Actor {
 	use UnitTesterActions;
 
 	/*

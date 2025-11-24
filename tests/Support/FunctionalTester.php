@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Codeception\Actor;
 use Tests\_generated\FunctionalTesterActions;
 
 /**
@@ -20,7 +21,7 @@ use Tests\_generated\FunctionalTesterActions;
  *
  * @SuppressWarnings(PHPMD)
  */
-class FunctionalTester extends \Codeception\Actor {
+class FunctionalTester extends Actor {
 	use FunctionalTesterActions;
 
 	/*
