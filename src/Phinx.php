@@ -31,7 +31,7 @@ class Phinx extends Module {
 		return $this->getModule('Db')->_getConfig('populate');
 	}
 
-	private function getSeedConfig() {
+	private function getSeedConfig(): bool {
 		return $this->getConfigBool('seed');
 	}
 
@@ -46,9 +46,8 @@ class Phinx extends Module {
 
 	/**
      * @param string $environment
-     * @param bool $seed
      */
-    private function phinx($environment, $seed): void {
+    private function phinx($environment, bool $seed): void {
 		$config = $this->findConfigPath();
 		if ($config === null) {
 			return;
