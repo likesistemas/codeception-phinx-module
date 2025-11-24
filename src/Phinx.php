@@ -45,9 +45,9 @@ class Phinx extends Module {
 	}
 
 	/**
-     * @param string $environment
-     */
-    private function phinx($environment, bool $seed): void {
+	 * @param string $environment
+	 */
+	private function phinx($environment, bool $seed): void {
 		$config = $this->findConfigPath();
 		if ($config === null) {
 			return;

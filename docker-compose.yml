@@ -10,7 +10,6 @@ services:
     image: likesistemas/php-dev:${PHP_VERSION:-56}
     environment:
       - GITHUB_TOKEN=$GITHUB_TOKEN
-      - URL_SENTRY=${URL_SENTRY}
       - DB_HOST=mysql
       - DB_MIGRATE=false
     volumes:

@@ -2,9 +2,6 @@
     "name": "likesistemas/codeception-phinx-module",
     "type": "library",
     "description": "Integração com phinx usando codeception.",
-    "repositories": [
-        {"type": "composer", "url": "https://composer.likesistemas.com.br/"}
-    ],
     "require": {
         "php": ">=7.4",
         "robmorgan/phinx": ">=0.10"
@@ -17,7 +14,6 @@
         "phpstan/phpstan": "^2.0",
         "rector/rector": "^2.0",
         "php-parallel-lint/php-parallel-lint": "^1.4",
-        "maglnet/composer-require-checker": "^3.8 || ^4.16",
         "symplify/easy-coding-standard": "^12.6"
     },
     "autoload": {
@@ -47,7 +43,6 @@
         "analyse": "phpstan analyse",
         "refactor": "rector process",
         "refactor:ci": "rector process --dry-run",
-        "lint": "parallel-lint --colors --exclude vendor/ .",
-        "reqs": "composer-require-checker check composer.json"
+        "lint": "parallel-lint --colors --exclude vendor/ ."
     }
 }

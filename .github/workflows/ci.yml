@@ -18,6 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare code
+        env:
+          PHP_VERSION: ${{ matrix.PHP }}
+        run: |
+          touch .env
+          echo "GITHUB_TOKEN=${{ secrets.GH_TOKEN }}" >> .env
+          echo "PHP_VERSION=$PHP_VERSION" >> .env
+
       - name: Up environment
         run: |
           docker compose up -d
