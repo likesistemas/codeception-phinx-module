@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class Phinx extends Module {
 	public function _before(TestInterface $test) {
-		if(! $this->getConfigPopulate()) {
+		if (!$this->getConfigPopulate()) {
 			return;
 		}
 
@@ -37,7 +37,7 @@ class Phinx extends Module {
 
 	private function getConfigBool($config) {
 		$seed = $this->_getConfig($config);
-		if($seed === null) {
+		if ($seed === null) {
 			$seed = true;
 		}
 
@@ -60,15 +60,15 @@ class Phinx extends Module {
 
 		$this->run($app, $output, 'migrate', $config, $environment);
 
-		if($seed) {
+		if ($seed) {
 			$this->run($app, $output, 'seed:run', $config, $environment);
 		}
 	}
 
 	private function run(PhinxApplication $phinx, BufferedOutput $output, $commandName, $config, $environment) {
 		$arguments = [
-			'command'         => $commandName,
-			'--environment'   => $environment,
+			'command' => $commandName,
+			'--environment' => $environment,
 			'--configuration' => $config,
 			'-vvv' => '',
 		];
