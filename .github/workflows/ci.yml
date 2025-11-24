@@ -12,7 +12,7 @@ jobs:
   test:
     strategy:
       matrix:
-        PHP: [56, 74, 80, 81, 82, 83]
+        PHP: [74, 80, 81, 82, 83]
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +26,16 @@ jobs:
           echo "GITHUB_TOKEN=${{ secrets.GH_TOKEN }}" >> .env
           echo "PHP_VERSION=$PHP_VERSION" >> .env
 
-      - name: Prepare environment
+      - name: Up environment
         run: |
           docker compose up -d
-          echo $(docker run -t --network github jwilder/dockerize -wait tcp://php:9000 -timeout 120s)
+
+      - name: Wait environment
+        run: |
+          echo $(docker compose -f docker-compose.wait.yml run --rm wait)
+
+      - name: Environment logs
+        run: |
           docker compose ps
           docker compose logs php
 
@@ -37,12 +43,20 @@ jobs:
         run: |
           docker compose exec -T php composer test
 
+      - name: Run Lint
+        run: |
+          docker compose exec -T php composer lint
+
       - name: Run PHP Stan
-        if: matrix.PHP != '56'
         run: |
           docker compose exec -T php composer analyse
 
-      - name: Run PHP CS Fixer
-        if: matrix.PHP != '56'
+      - name: Run ECS
         run: |
           docker compose exec -T php composer fix:ci
+
+      - name: Desligando ambiente
+        if: ${{ always() }}
+        run: |
+          docker compose exec -T php rm -Rf vendor/ .env
+          docker compose down --remove-orphans
